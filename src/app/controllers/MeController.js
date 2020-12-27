@@ -6,8 +6,10 @@ class MeController{
 
     // [GET] me/stored/courses
     storedCourses(req, res, next){
-
-        Promise.all([Course.find({}), Course.countDocumentsDeleted()])
+        Promise.all([
+            Course.find({}).sortable(req),
+            Course.countDocumentsDeleted(),
+        ])
             .then( ([courses, deletedCount]) => 
                 res.render('me/stored-courses' ,{
                     deletedCount,
@@ -15,25 +17,11 @@ class MeController{
                 })
             )
             .catch(next);
-
-        // Course.countDocumentsDeleted()
-        //     .then((deletedCount) => {
-        //         console.log(deletedCount);
-        //     })
-        //     .catch(()=>{
-
-        //     });
-            
-        // Course.find({})
-        //     .then(courses => res.render('me/stored-courses' ,{ 
-        //         courses : multipleMongooseToObject(courses)
-        //     }))
-        //     .catch(next);
     }
 
     // [GET] me/stored/courses
     trashCourses(req, res, next){
-        Course.findDeleted({})
+        Course.findDeleted({}).sortable(req)
             .then(courses => res.render('me/trash-courses' ,{ 
                 courses : multipleMongooseToObject(courses)
             }))

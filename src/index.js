@@ -4,6 +4,8 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const handlebars  = require('express-handlebars');
 
+const SortMiddleware = require('./app/middlewares/sortMiddleware');
+
 const route = require('./routes');
 const db = require('./config/db');
 
@@ -23,16 +25,17 @@ app.use(express.json());
 //method-override
 app.use(methodOverride('_method'));
 
+//Custom middleware
+app.use(SortMiddleware);
+
 //HTTP Logger
 app.use(morgan('combined'));
 
 //Template Engine
 app.engine('hbs', handlebars({
     extname: '.hbs',
-    helpers: { 
-      sum: (a, b) => a + b, 
-    }
-  })
+    helpers: require('./helpers/handlebars'),
+  }),
 );
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources','views'));

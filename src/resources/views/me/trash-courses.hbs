@@ -6,17 +6,25 @@
     <table class="table mt-4">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Name Course</th>
-                <th scope="col">Level</th>
-                <th scope="col">CreatedAt</th>
+                <th scope="col">ID
+                    {{{sortable '_id' _sort}}}
+                </th>
+                <th scope="col">Name Course
+                    {{{sortable 'name' _sort}}}
+                </th>
+                <th scope="col">Level
+                    {{{sortable 'level' _sort}}}
+                </th>
+                <th scope="col">CreatedAt
+                    {{{sortable 'createdAt' _sort}}}
+                </th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             {{#each courses}}
             <tr>
-                <th scope="row">{{sum @index 1}}</th>
+                <th scope="row">{{this._id}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
