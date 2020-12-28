@@ -12,7 +12,7 @@ const courseSchema = new Schema(
     _id:{ type: Number, },
     name: { type: String, require:true, maxLength: 255},
     desc: { type: String, maxLength: 600},
-    thumbnail: { type: String, maxLength: 255},
+    thumbnail: { type: String},
     videoID: { type: String, require:true, maxLength: 255},
     level: { type: String, maxLength: 255},
     slug: { type: String, slug: 'name', unique: true},

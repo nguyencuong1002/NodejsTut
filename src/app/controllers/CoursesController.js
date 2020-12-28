@@ -1,7 +1,11 @@
 const Course = require('../models/Course');
+
+require('dotenv').config();
+const cloudinary = require('cloudinary');
+require('../middlewares/cloudinary');
+
 //import multiple Mongoose Object
 const {multipleMongooseToObject, mongooseToObject} = require('../../utils/mongoose');
-
 class CoursesController{
 
     // [GET] /courses/:slug
@@ -19,15 +23,22 @@ class CoursesController{
     }
 
     // [POST] /courses/store
-    store(req, res, next){
-        const formData = {...req.body};
-        formData.thumbnail = `https://img.youtube.com/vi/${req.body.videoID}/sddefault.jpg`;
-        const course = new Course(formData);
-        course.save()
-            .then(() => res.redirect('/me/stored/courses'))
-            .catch( error => {
+    async store(req, res, next){
+        //const formData = {...req.body};
+        //formData.thumbnail = `https://img.youtube.com/vi/${req.body.videoID}/sddefault.jpg`;
+        //const course = new Course(formData);
+        // course.save()
+        //     .then(() => res.redirect('/me/stored/courses'))
+        //     .catch( error => {
                 
-            });
+        //     });
+        const result =  await cloudinary.v2.uploader.upload(req.file.path);
+        const course = new Course(req.body);
+        course.thumbnail = result.secure_url;
+        await course.save();
+
+        res.redirect('/');
+        
     }
 
     // [GET] /courses/:id/edit

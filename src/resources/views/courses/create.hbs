@@ -1,21 +1,25 @@
 <div class="mt-4">
     <h3>Create Course</h3>
-    <form method="POST" action="/courses/store">
+    <form method="POST" action="/courses/store" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name Course</label>
             <input type="text" class="form-control" id="name" name="name">
         </div>
         <div class="form-group">
             <label for="desc">Description</label>
-            <input type="text" class="form-control" id="name" name="desc">
+            <input type="text" class="form-control" id="desc" name="desc">
+        </div>
+        <div class="form-group">
+            <label for="thumbnail">Thumbnail</label>
+            <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
         </div>
         <div class="form-group">
             <label for="videoID">Video ID</label>
-            <input type="text" class="form-control" id="name" name="videoID">
+            <input type="text" class="form-control" id="videoID" name="videoID">
         </div>
         <div class="form-group">
             <label for="level">Level</label>
-            <input type="text" class="form-control" id="name" name="level">
+            <input type="text" class="form-control" id="level" name="level">
         </div>
         <button type="submit" class="btn btn-primary mt-3">Create Course</button>
     </form>
